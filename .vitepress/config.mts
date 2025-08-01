@@ -17,7 +17,7 @@ export default defineConfig({
         text: 'Menu',
         items: [
           { text: 'Get Started', link: '/get-started' },
-          { text: 'React', link: '/src/react' }
+          { text: 'React', link: '/guide/react' }
         ]
       }
     ],
