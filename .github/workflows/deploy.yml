@@ -2,7 +2,7 @@ name: Deploy VitePress ▶ GitHub Pages
 
 on:
   push:
-    branches: [ develop ]      # or your default branch
+    branches: [ main ]      # or your default branch
 
 jobs:
   build-and-deploy:
