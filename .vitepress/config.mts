@@ -3,6 +3,7 @@ import { defineConfig } from 'vitepress'
 // https://vitepress.dev/reference/site-config
 export default defineConfig({
   title: "Ultimate CS Note",
+  base: "/UltimateCSNote/",
   description: "A Vitepress Site with easy-to-understand documents on learning computer science and software engineering",
   themeConfig: {
     // https://vitepress.dev/reference/default-theme-config
