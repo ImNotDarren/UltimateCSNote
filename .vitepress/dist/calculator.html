@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Calculator</title>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/big.js/6.1.1/big.min.js"></script>
+</head>
+
+<body>
+  <div class="container">
+    <div class="cal-container">
+      <div class="display" id="display">0</div>
+      <div class="btn-area">
+        <button class="btn-fun" onclick="clearDisplay()">AC</button>
+        <button class="btn-fun" onclick="back()">&#x25c0;</button>
+        <button class="btn-fun" onclick="negative()">+/-</button>
+        <button class="btn-operation" id="/">/</button>
+        <button class="btn-num">7</button>
+        <button class="btn-num">8</button>
+        <button class="btn-num">9</button>
+        <button class="btn-operation" id="*">*</button>
+        <button class="btn-num">4</button>
+        <button class="btn-num">5</button>
+        <button class="btn-num">6</button>
+        <button class="btn-operation" id="-">-</button>
+        <button class="btn-num">1</button>
+        <button class="btn-num">2</button>
+        <button class="btn-num">3</button>
+        <button class="btn-operation" id="+">+</button>
+        <button class="btn-num"></button>
+        <button class="btn-num">0</button>
+        <button class="btn-num">.</button>
+        <button class="btn-operation" id="=">=</button>
+      </div>
+    </div>
+  </div>
+</body>
+<script>
+  const display = document.getElementById('display');
+  let savedInput = "";
+  let currInput = "0";
+  let currOperator = "";
+  let isOperatorJustClicked = false;
+
+  const clearDisplay = () => {
+    if (currInput === "0") {
+      currOperator = "";
+      return;
+    }
+
+    currInput = "0";
+    display.textContent = "0";
+  };
+
+  const back = () => {
+    if (currInput.length === 1) {
+      currInput = "0";
+      display.textContent = "0";
+      return;
+    }
+
+    currInput = currInput.slice(0, -1);
+    display.textContent = currInput;
+  };
+
+  const negative = () => {
+    if (currInput === "0") {
+      return;
+    }
+
+    if (currInput.includes("-")) {
+      currInput = currInput.slice(1);
+    } else {
+      currInput = "-" + currInput;
+    }
+
+    display.textContent = currInput;
+  };
+
+  const handleNumberClick = (num) => {
+    if (isOperatorJustClicked) {
+      isOperatorJustClicked = false;
+      currInput = "0";
+      return handleNumberClick(num);
+    }
+
+    if (num === ".") {
+      if (currInput.includes(".")) {
+        return;
+      }
+      if (currInput === "0") {
+        currInput = "0.";
+        display.textContent = currInput;
+        return;
+      }
+    }
+
+    if (currInput === "0") {
+      currInput = num;
+      display.textContent = currInput;
+      return;
+    }
+
+    currInput += num;
+    display.textContent = currInput;
+  };
+
+  const handleOperationClick = (operator) => {
+    if (operator === "=") {
+      document.querySelectorAll('.btn-operation').forEach(btn => {
+        btn.classList.remove("btn-operation-active");
+      });
+      if (savedInput.length === 0 || currOperator.length === 0) {
+        display.textContent = "0";
+        currInput = "0";
+        currOperator = "";
+        savedInput = "";
+        return;
+      }
+
+      const a = new Big(parseFloat(savedInput));
+      const b = new Big(parseFloat(currInput));
+
+      switch (currOperator) {
+        case "+":
+          currInput = a.plus(b).toString();
+          break;
+        case "-":
+          currInput = a.minus(b).toString();
+          break;
+        case "*":
+          currInput = a.times(b).toString();
+          break;
+        case "/":
+          currInput = a.div(b).toString();
+          break;
+      }
+
+      display.textContent = currInput;
+      savedInput = "";
+      currOperator = "";
+      return;
+    }
+
+    if (currOperator.length === 0) {
+      savedInput = currInput;
+      currOperator = operator;
+      isOperatorJustClicked = true;
+      document.getElementById(operator).classList.add("btn-operation-active");
+      return;
+    }
+
+    if (currOperator.length > 0 && isOperatorJustClicked) {
+      currOperator = operator;
+      document.getElementById(operator).classList.add("btn-operation-active");
+      return;
+    }
+
+    if (activeOperatorButton) {
+      activeOperatorButton.classList.remove("active");
+    }
+  };
+
+  document.querySelectorAll('.btn-num').forEach(btn => {
+    if (btn.textContent.length > 0) {
+      btn.onclick = () => {
+        handleNumberClick(btn.textContent);
+        display.textContent = currInput;
+      }
+    }
+  });
+
+  document.querySelectorAll('.btn-operation').forEach(btn => {
+    btn.onclick = () => {
+      handleOperationClick(btn.textContent);
+    }
+  });
+</script>
+
+<style>
+  .container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+  }
+
+  .cal-container {
+    --padding: 20px;
+    width: 300px;
+    padding: var(--padding);
+    background-color: rgb(210, 210, 210);
+    border-radius: 20px;
+  }
+
+  .display {
+    background-color: white;
+    border-radius: 10px;
+    padding: 10px;
+    font-size: 2rem;
+    text-align: right;
+    width: cal(100% - 2 * var(--padding));
+    height: 50px;
+    line-height: 50px;
+  }
+
+  .btn-area {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 10px;
+    margin-top: 30px;
+  }
+
+  .btn-fun,
+  .btn-operation,
+  .btn-num {
+    height: 50px;
+    line-height: 50px;
+    border-radius: 30px;
+    border: none;
+    background-color: grey;
+    color: white;
+    font-size: 1.5rem;
+    cursor: pointer;
+    transition: 0.3s;
+    user-select: none;
+  }
+
+  .btn-fun {
+    background-color: rgb(160, 160, 160);
+  }
+
+  .btn-operation {
+    background-color: #ffa621;
+  }
+
+  .btn-operation-active {
+    background-color: #f28705;
+  }
+
+  .active {
+    border: 2px solid #ff4500;
+    background-color: #ff8c00;
+  }
+
+  .btn-fun:hover,
+  .btn-num:hover {
+    background-color: rgb(100, 100, 100);
+  }
+
+  .btn-fun:active,
+  .btn-num:active {
+    background-color: rgb(50, 50, 50);
+  }
+
+  .btn-operation:hover {
+    background-color: #ff8c00;
+  }
+
+  .btn-operation:active {
+    background-color: #ff4500;
+  }
+</style>
+
+</html>
