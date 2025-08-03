@@ -2,16 +2,6 @@
 
 Welcome to the wonderful world of React! 🎉 Think of React as your digital LEGO set - you build amazing websites by snapping together reusable components. Let's dive in!
 
-## 📚 Table of Contents
-- [🏗️ Setting Up Your React Playground](#️-setting-up-your-react-playground)
-- [🎯 React Basics & Syntax](#-react-basics--syntax)
-- [🏛️ Class Components (The Old School Way)](#️-class-components-the-old-school-way)
-- [⚡ Function Components (The Modern Way)](#-function-components-the-modern-way)
-- [🪝 React Hooks (Your New Best Friends)](#-react-hooks-your-new-best-friends)
-- [🎮 Controlled vs Uncontrolled Components](#-controlled-vs-uncontrolled-components)
-- [⚡ Performance Optimization](#-performance-optimization)
-- [🗺️ React Router (Navigate Like a Pro)](#️-react-router-navigate-like-a-pro)
-- [🎯 Pro Tips & Tricks](#-pro-tips--tricks)
 
 ## 🏗️ Setting Up Your React Playground
 
@@ -763,8 +753,8 @@ Congratulations! 🎊 You've just completed React Bootcamp! You now know:
 - ✅ Best practices that will make your code shine
 
 **Next steps on your React journey:** 🗺️
-1. Build a small project (Todo app, weather app, or portfolio)
-2. Learn about custom hooks
+1. Rebuild the calculator in `HTML, CSS, and JavaScript` with React
+2. Learn about `custom hooks`
 3. Explore state management libraries (Redux, Zustand)
 4. Dive into testing (Jest, React Testing Library)
 5. Try Next.js for full-stack React apps

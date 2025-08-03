@@ -17,7 +17,14 @@ export default defineConfig({
         text: 'Menu',
         items: [
           // { text: 'Get Started', link: '/get-started' },
-          { text: 'HTML, CSS, and JavaScript', link: '/guide/html' },
+          {
+            text: 'HTML, CSS, and JavaScript',
+            items: [
+              { text: 'HTML', link: '/guide/html' },
+              { text: 'CSS', link: '/guide/css' },
+              { text: 'JavaScript', link: '/guide/js' }
+            ]
+          },
           { text: 'React', link: '/guide/react' },
         ]
       }

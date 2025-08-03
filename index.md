@@ -8,7 +8,7 @@ hero:
   actions:
     - theme: brand
       text: Get Started
-      link: /guide/react
+      link: /guide/html
     # - theme: alt
     #   text: API Examples
     #   link: /api-examples
